@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BTU Career Launchpad - Project Timeline</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #4a6cf7 0%, #667eea 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.1)"/></svg>') repeat;
+            animation: float 20s linear infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateX(-50px) translateY(-50px); }
+            100% { transform: translateX(50px) translateY(50px); }
+        }
+
+        .rocket {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: inline-block;
+            animation: rocket-bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes rocket-bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+            position: relative;
+            z-index: 2;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 2;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .phase {
+            margin-bottom: 40px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .phase:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .phase-header {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ffa726 100%);
+            color: white;
+            padding: 25px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .phase:nth-child(1) .phase-header { background: linear-gradient(135deg, #ff6b6b 0%, #ffa726 100%); }
+        .phase:nth-child(2) .phase-header { background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%); }
+        .phase:nth-child(3) .phase-header { background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); color: #333; }
+        .phase:nth-child(4) .phase-header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .phase:nth-child(5) .phase-header { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+        .phase:nth-child(6) .phase-header { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+
+        .phase-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .phase:hover .phase-header::before {
+            left: 100%;
+        }
+
+        .phase-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            position: relative;
+            z-index: 2;
+        }
+
+        .phase-badge {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            position: relative;
+            z-index: 2;
+        }
+
+        .phase-content {
+            background: white;
+            padding: 30px;
+        }
+
+        .section {
+            margin-bottom: 25px;
+            border-left: 4px solid #4a6cf7;
+            border-radius: 0 8px 8px 0;
+            background: linear-gradient(135deg, rgba(74, 108, 247, 0.05) 0%, rgba(255, 255, 255, 0.05) 100%);
+            transition: all 0.3s ease;
+        }
+
+        .section:hover {
+            border-left-color: #ff6b6b;
+            background: linear-gradient(135deg, rgba(255, 107, 107, 0.05) 0%, rgba(255, 255, 255, 0.05) 100%);
+            transform: translateX(5px);
+        }
+
+        .section-header {
+            background: rgba(74, 108, 247, 0.1);
+            padding: 15px 20px;
+            font-weight: 600;
+            color: #333;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .section:hover .section-header {
+            background: rgba(255, 107, 107, 0.1);
+        }
+
+        .section-number {
+            background: #4a6cf7;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+
+        .section:hover .section-number {
+            background: #ff6b6b;
+            transform: scale(1.1);
+        }
+
+        .subsections {
+            padding: 20px;
+            display: none;
+        }
+
+        .subsections.active {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .subsection {
+            margin-bottom: 15px;
+            padding: 12px 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 3px solid #e9ecef;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .subsection:hover {
+            background: #e3f2fd;
+            border-left-color: #2196f3;
+            transform: translateX(10px);
+        }
+
+        .subsection-code {
+            font-weight: 600;
+            color: #666;
+            margin-right: 10px;
+        }
+
+        .toggle-icon {
+            margin-left: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .section.active .toggle-icon {
+            transform: rotate(180deg);
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(135deg, #4a6cf7 0%, #ff6b6b 100%);
+            z-index: 1000;
+            transition: width 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                border-radius: 15px;
+            }
+            
+            .header {
+                padding: 30px 20px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .phase-header {
+                padding: 20px;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .phase-title {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar" id="progressBar"></div>
+    
+    <div class="container">
+        <div class="header">
+            <div class="rocket">🚀</div>
+            <h1>BTU Career Launchpad</h1>
+            <p>სტუდენტური კარიერული პლატფორმის განვითარების პროექტი</p>
+        </div>
+
+        <div class="content">
+            <!-- Phase 1 -->
+            <div class="phase">
+                <div class="phase-header">
+                    <div class="phase-title">1.0 დაგეგმვისა და ანალიზის ფაზა</div>
+                    <div class="phase-badge">Phase 1</div>
+                </div>
+                <div class="phase-content">
+                    <div class="section" onclick="toggleSection(this)">
+                        <div class="section-header">
+                            <div class="section-number">1.1</div>
+                            <div>კვლევა</div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                        <div class="subsections">
+                            <div class="subsection">
+                                <span class="subsection-code">1.1.1</span>
+                                საბაზრო კვლევა და კონკურენტთა ანალიზი
+                            </div>
+                            <div class="subsection">
+                                <span class="subsection-code">1.1.2</span>
+                                არსებული კარიერული პლატფორმების შესწავლა
+                            </div>
+                            <div class="subsection">
+                                <span class="subsection-code">1.1.3</span>
+                                სტეიქჰოლდერების საჭიროებების კვლევა
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section" onclick="toggleSection(this)">
+                        <div class="section-header">
+                            <div class="section-number">1.2</div>
+                            <div>მოთხოვნების განსაზღვრა და დოკუმენტაცია</div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                        <div class="subsections">
+                            <div class="subsection">
+                                <span class="subsection-code">1.2.1</span>
+                                სისტემის მოთხოვნების დოკუმენტაცია
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section" onclick="toggleSection(this)">
+                        <div class="section-header">
+                            <div class="section-number">1.3</div>
+                            <div>ტექნიკური სპეციფიკაცია და არქიტექტურა</div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                        <div class="subsections">
+                            <div class="subsection">
+                                <span class="subsection-code">1.3.1</span>
+                                სისტემის ზოგადი არქიტექტურის დაგეგმვა
+                            </div>
+                            <div class="subsection">
+                                <span class="subsection-code">1.3.2</span>
+                                მონაცემთა უსაფრთხოების გეგმა
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 2 -->
+            <div class="phase">
+                <div class="phase-header">
+                    <div class="phase-title">2.0 დიზაინი და ინტერფეისი (შემუშავება)</div>
+                    <div class="phase-badge">Phase 2</div>
+                </div>
+                <div class="phase-content">
+                    <div class="section" onclick="toggleSection(this)">
+                        <div class="section-header">
+                            <div class="section-number">2.1</div>
+                            <div>UX/UI დიზაინის შემუშავება</div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                        <div class="subsections">
+                            <div class="subsection">
+                                <span class="subsection-code">2.1.1</span>
+                                საიტის სტრუქტურის დაგეგმვა
+                            </div>
+                            <div class="subsection">
+                                <span class="subsection-code">2.1.2</span>
+                                მომხმარებელთა ინტერფეისის დიზაინი
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section" onclick="toggleSection(this)">
+                        <div class="section-header">
+                            <div class="section-number">2.2</div>
+                            <div>პროტოტიპირება</div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                        <div class="subsections">
+                            <div class="subsection">
+                                <span class="subsection-code">2.2.1</span>
+                                ინტერაქტიული პროტოტიპის შექმნა
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 3 -->
+            <div class="phase">
+                <div class="phase-header">
+                    <div class="phase-title">3.0 პარტნიორების მოძიება და თანამშრომლობა</div>
+                    <div class="phase-badge">Phase 3</div>
+                </div>
+                <div class="phase-content">
+                    <div class="section" onclick="toggleSection(this)">
+                        <div class="section-header">
+                            <div class="section-number">3.1</div>
+                            <div>პოტენციური პარტნიორების იდენტიფიცირება</div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                        <div class="subsections">
+                            <div class="subsection">
+                                <span class="subsection-code">3.1.1</span>
+                                კომპანიების და ორგანიზაციების მოძიება
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section" onclick="toggleSection(this)">
+                        <div class="section-header">
+                            <div class="section-number">3.2</div>
+                            <div>პარტნიორებთან კომუნიკაცია და პრეზენტაცია</div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                        <div class="subsections">
+                            <div class="subsection">
+                                <span class="subsection-code">3.2.1</span>
+                                პრეზენტაციის მომზადება
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section" onclick="toggleSection(this)">
+                        <div class="section-header">
+                            <div class="section-number">3.3</div>
+                            <div>თანამშრომლობის პირობების შეთანხმება</div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                        <div class="subsections">
+                            <div class="subsection">
+                                <span class="subsection-code">3.3.1</span>
+                                დოკუმენტაცია
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 4 -->
+            <div class="phase">
+                <div class="phase-header">
+                    <div class="phase-title">4.0 პლატფორმის განვითარება</div>
+                    <div class="phase-badge">Phase 4</div>
+                </div>
+                <div class="phase-content">
+                    <div class="section" onclick="toggleSection(this)">
+                        <div class="section-header">
+                            <div class="section-number">4.1</div>
+                            <div>Frontend</div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                        <div class="subsections">
+                            <div class="subsection">
+                                <span class="subsection-code">4.1.1</span>
+                                ძირითადი გვერდების შექმნა
+                            </div>
+                            <div class="subsection">
+                                <span class="subsection-code">4.1.2</span>
+                                ძირითადი ფუნქციები (ფილტრაცია, ძიება, Log in...)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section" onclick="toggleSection(this)">
+                        <div class="section-header">
+                            <div class="section-number">4.2</div>
+                            <div>Backend</div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                        <div class="subsections">
+                            <div class="subsection">
+                                <span class="subsection-code">4.2.1</span>
+                                სერვერული ლოგიკის შექმნა
+                            </div>
+                            <div class="subsection">
+                                <span class="subsection-code">4.2.2</span>
+                                მართვის სისტემები
+                            </div>
+                            <div class="subsection">
+                                <span class="subsection-code">4.2.3</span>
+                                API-ის შექმნა
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section" onclick="toggleSection(this)">
+                        <div class="section-header">
+                            <div class="section-number">4.3</div>
+                            <div>მონაცემთა ბაზის შექმნა და მართვა</div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                        <div class="subsections">
+                            <div class="subsection">
+                                <span class="subsection-code">4.3.1</span>
+                                მონაცემთა ბაზის სქემის დიზაინი
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 5 -->
+            <div class="phase">
+                <div class="phase-header">
+                    <div class="phase-title">5.0 სპეციალური ფუნქციების განვითარება</div>
+                    <div class="phase-badge">Phase 5</div>
+                </div>
+                <div class="phase-content">
+                    <div class="section" onclick="toggleSection(this)">
+                        <div class="section-header">
+                            <div class="section-number">5.1</div>
+                            <div>AI სისტემა</div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                        <div class="subsections">
+                            <div class="subsection">
+                                <span class="subsection-code">5.1.1</span>
+                                რეზიუმეს ავტომატური ანალიზის ფუნქცია
+                            </div>
+                            <div class="subsection">
+                                <span class="subsection-code">5.1.2</span>
+                                კარიერული რეკომენდაციების სისტემა
+                            </div>
+                            <div class="subsection">
+                                <span class="subsection-code">5.1.3</span>
+                                ჩატბოტის ინტეგრაცია
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section" onclick="toggleSection(this)">
+                        <div class="section-header">
+                            <div class="section-number">5.2</div>
+                            <div>Gamification</div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                        <div class="subsections">
+                            <div class="subsection">
+                                <span class="subsection-code">5.2.1</span>
+                                მოტივაციის სისტემა
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section" onclick="toggleSection(this)">
+                        <div class="section-header">
+                            <div class="section-number">5.3</div>
+                            <div>Mentorship</div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                        <div class="subsections">
+                            <div class="subsection">
+                                <span class="subsection-code">5.3.1</span>
+                                მენტორშიპ სისტემის შექმნა
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 6 -->
+            <div class="phase">
+                <div class="phase-header">
+                    <div class="phase-title">6.0 ტესტირება, ოპტიმიზაცია და ჩაშვება</div>
+                    <div class="phase-badge">Phase 6</div>
+                </div>
+                <div class="phase-content">
+                    <div class="section" onclick="toggleSection(this)">
+                        <div class="section-header">
+                            <div class="section-number">6.1</div>
+                            <div>ფუნქციონალური ტესტირება</div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                        <div class="subsections">
+                            <div class="subsection">
+                                <span class="subsection-code">6.1.1</span>
+                                ყველა ფუნქციის ტესტირება
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section" onclick="toggleSection(this)">
+                        <div class="section-header">
+                            <div class="section-number">6.2</div>
+                            <div>მომხმარებელთან ტესტირება და უკუკავშირი</div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                        <div class="subsections">
+                            <div class="subsection">
+                                <span class="subsection-code">6.2.1</span>
+                                Beta ვერსიის ტესტირება სტუდენტებთან
+                            </div>
+                            <div class="subsection">
+                                <span class="subsection-code">6.2.2</span>
+                                გამოყენების სიმარტივის შეფასება
+                            </div>
+                            <div class="subsection">
+                                <span class="subsection-code">6.2.3</span>
+                                უკუკავშირის შეგროვება და ანალიზი
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="section" onclick="toggleSection(this)">
+                        <div class="section-header">
+                            <div class="section-number">6.3</div>
+                            <div>ოფიციალური გაშვება და მარკეტინგი</div>
+                            <div class="toggle-icon">▼</div>
+                        </div>
+                        <div class="subsections">
+                            <div class="subsection">
+                                <span class="subsection-code">6.3.1</span>
+                                პროდუქციული სერვერის მომზადება
+                            </div>
+                            <div class="subsection">
+                                <span class="subsection-code">6.3.2</span>
+                                გაშვების მარკეტინგული კამპანია
+                            </div>
+                            <div class="subsection">
+                                <span class="subsection-code">6.3.3</span>
+                                პლატფორმის ოფიციალური ჩაშვება BTU-ში
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleSection(element) {
+            const subsections = element.querySelector('.subsections');
+            const isActive = element.classList.contains('active');
+            
+            // Close all sections first
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+                section.querySelector('.subsections').classList.remove('active');
+            });
+            
+            // Open clicked section if it wasn't active
+            if (!isActive) {
+                element.classList.add('active');
+                subsections.classList.add('active');
+            }
+        }
+
+        // Progress bar functionality
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            document.getElementById('progressBar').style.width = scrollPercent + '%';
+        });
+
+        // Add some initial animation
+        window.addEventListener('load', () => {
+            const phases = document.querySelectorAll('.phase');
+            phases.forEach((phase, index) => {
+                setTimeout(() => {
+                    phase.style.opacity = '0';
+                    phase.style.transform = 'translateY(20px)';
+                    phase.style.transition = 'all 0.6s ease';
+                    
+                    setTimeout(() => {
+                        phase.style.opacity = '1';
+                        phase.style.transform = 'translateY(0)';
+                    }, 50);
+                }, index * 100);
+            });
+        });
+    </script>
+</body>
+</html>
